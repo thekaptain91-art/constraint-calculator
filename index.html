@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The 14-Day Project Filter | Executionist System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+        }
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            #printable, #printable * {
+                visibility: visible;
+            }
+            #printable {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+            button {
+                display: none !important;
+            }
+            a {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-100 min-h-screen p-8">
+    <div id="printable" class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="border-b border-gray-800 pb-6 mb-8">
+            <div class="flex items-center gap-2 mb-2">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <span class="text-xs tracking-wider text-gray-500">EXECUTIONIST SYSTEM</span>
+            </div>
+            <h1 class="text-3xl font-bold mb-3">The 14-Day Project Filter</h1>
+            <p class="text-gray-400 text-sm">Cut or Commit. No exceptions.</p>
+        </div>
+
+        <!-- Input View -->
+        <div id="inputView">
+            <!-- Instructions -->
+            <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide">INSTRUCTIONS</h2>
+                <ol class="space-y-2 text-sm text-gray-300">
+                    <li>1. List every active project, idea, or "someday" task below.</li>
+                    <li>2. Apply the Executionist Filter to each one.</li>
+                    <li>3. Keep only what survives. Kill the rest immediately.</li>
+                </ol>
+            </div>
+
+            <!-- Project Input -->
+            <div class="mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
+                    CURRENT PROJECTS / IDEAS / TASKS
+                </h2>
+                <div id="projectList" class="space-y-3"></div>
+                
+                <button onclick="addProject()" class="mt-4 text-xs text-gray-500 hover:text-gray-300 border border-gray-800 px-4 py-2">
+                    + Add Another
+                </button>
+            </div>
+
+            <!-- Filter Button -->
+            <div class="border-t border-gray-800 pt-8">
+                <button onclick="showFilter()" class="w-full bg-white text-black py-4 font-bold hover:bg-gray-200 transition-colors">
+                    APPLY FILTER
+                </button>
+            </div>
+        </div>
+
+        <!-- Filter View -->
+        <div id="filterView" class="hidden">
+            <!-- Filter Instructions -->
+            <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide">THE EXECUTIONIST FILTER</h2>
+                <p class="text-sm text-gray-300 mb-4">
+                    For each project below, answer this question:
+                </p>
+                <div class="bg-black border border-gray-700 p-4">
+                    <p class="text-base font-bold text-white">
+                        "Can I work on this during a low-energy Tuesday with no motivation?"
+                    </p>
+                </div>
+                <p class="text-xs text-gray-500 mt-4">
+                    If the answer is no, it depends on conditions you cannot control. Kill it.
+                </p>
+            </div>
+
+            <!-- Decision Matrix -->
+            <div class="mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
+                    DECISION MATRIX
+                </h2>
+                <div id="decisionMatrix" class="space-y-4"></div>
+            </div>
+
+            <!-- Summary -->
+            <div class="bg-black border border-gray-800 p-6 mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide">SUMMARY</h2>
+                <div class="grid grid-cols-2 gap-6">
+                    <div>
+                        <div id="survivingCount" class="text-3xl font-bold mb-1">0</div>
+                        <div class="text-xs text-gray-500">PROJECTS SURVIVING</div>
+                    </div>
+                    <div>
+                        <div id="killedCount" class="text-3xl font-bold mb-1 text-red-500">0</div>
+                        <div class="text-xs text-gray-500">PROJECTS ELIMINATED</div>
+                    </div>
+                </div>
+                
+                <div id="summaryMessage" class="mt-6"></div>
+            </div>
+
+            <!-- Actions -->
+            <div class="flex gap-4 border-t border-gray-800 pt-8">
+                <button onclick="reset()" class="flex-1 border border-gray-700 text-gray-300 py-3 text-sm hover:border-gray-500 transition-colors">
+                    START OVER
+                </button>
+                <button onclick="window.print()" class="flex-1 border border-gray-700 text-gray-300 py-3 text-sm hover:border-gray-500 transition-colors">
+                    SAVE AS PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="mt-12 pt-6 border-t border-gray-800 text-center">
+            <p class="text-xs text-gray-600">
+                Executionist Content Operating System · Constraint-Based Action
+            </p>
+        </div>
+    </div>
+
+    <script>
+        let projects = [];
+        let decisions = [];
+
+        function initProjects() {
+            for (let i = 0; i < 12; i++) {
+                projects.push('');
+            }
+            renderProjects();
+        }
+
+        function renderProjects() {
+            const list = document.getElementById('projectList');
+            list.innerHTML = '';
+            projects.forEach((project, index) => {
+                const div = document.createElement('div');
+                div.className = 'flex gap-3';
+                div.innerHTML = `
+                    <span class="text-gray-600 text-sm w-6">${index + 1}.</span>
+                    <input 
+                        type="text" 
+                        value="${project}" 
+                        onchange="updateProject(${index}, this.value)"
+                        class="flex-1 bg-gray-900 border border-gray-800 px-3 py-2 text-sm focus:border-gray-600 focus:outline-none"
+                        placeholder="Enter project or task"
+                    />
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function updateProject(index, value) {
+            projects[index] = value;
+        }
+
+        function addProject() {
+            projects.push('');
+            renderProjects();
+        }
+
+        function showFilter() {
+            const filledProjects = projects.filter(p => p.trim() !== '');
+            if (filledProjects.length === 0) {
+                alert('Please add at least one project before applying the filter.');
+                return;
+            }
+
+            decisions = filledProjects.map(project => ({
+                name: project,
+                decision: null
+            }));
+
+            renderDecisionMatrix();
+            document.getElementById('inputView').classList.add('hidden');
+            document.getElementById('filterView').classList.remove('hidden');
+        }
+
+        function renderDecisionMatrix() {
+            const matrix = document.getElementById('decisionMatrix');
+            matrix.innerHTML = '';
+            
+            decisions.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'bg-gray-900 border border-gray-800 p-4';
+                div.innerHTML = `
+                    <div class="mb-3">
+                        <span class="text-gray-600 text-xs">PROJECT ${index + 1}</span>
+                        <p class="text-sm mt-1">${item.name}</p>
+                    </div>
+                    <div class="flex gap-3">
+                        <button 
+                            onclick="makeDecision(${index}, true)"
+                            id="commit-${index}"
+                            class="flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors"
+                        >
+                            COMMIT
+                        </button>
+                        <button 
+                            onclick="makeDecision(${index}, false)"
+                            id="cut-${index}"
+                            class="flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors"
+                        >
+                            CUT
+                        </button>
+                    </div>
+                `;
+                matrix.appendChild(div);
+            });
+        }
+
+        function makeDecision(index, passes) {
+            decisions[index].decision = passes;
+            
+            const commitBtn = document.getElementById(`commit-${index}`);
+            const cutBtn = document.getElementById(`cut-${index}`);
+            
+            if (passes) {
+                commitBtn.className = 'flex-1 py-2 text-sm border bg-white text-black border-white transition-colors';
+                cutBtn.className = 'flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors';
+            } else {
+                commitBtn.className = 'flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors';
+                cutBtn.className = 'flex-1 py-2 text-sm border bg-red-900 text-white border-red-900 transition-colors';
+            }
+            
+            updateSummary();
+        }
+
+        function updateSummary() {
+            const surviving = decisions.filter(d => d.decision === true).length;
+            const killed = decisions.filter(d => d.decision === false).length;
+            
+            document.getElementById('survivingCount').textContent = surviving;
+            document.getElementById('killedCount').textContent = killed;
+            
+            const messageDiv = document.getElementById('summaryMessage');
+            
+            if (surviving > 2) {
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-900 border border-gray-700 p-4">
+                        <p class="text-xs text-gray-400">
+                            ⚙️ You have ${surviving} active projects. The Executionist System limits you to 1-2 projects per 14-day cycle. Reapply the filter.
+                        </p>
+                    </div>
+                `;
+            } else if (surviving > 0 && surviving <= 2) {
+                messageDiv.innerHTML = `
+                    <div class="bg-gray-900 border border-gray-700 p-4">
+                        <p class="text-xs text-white mb-3">
+                            You have constraint. Now enforce it.
+                        </p>
+                        <p class="text-xs text-gray-400 mb-4">
+                            Constraint creates relief. Maintenance requires a system.
+                        </p>
+                        <a 
+                            href="https://selar.com/6s71967168"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="block w-full bg-white text-black text-center py-3 text-sm font-bold hover:bg-gray-200 transition-colors"
+                        >
+                            GET THE 14-DAY EXECUTION SYSTEM
+                        </a>
+                        <p class="text-xs text-gray-600 mt-3 text-center">
+                            The system that maintains this state without willpower.
+                        </p>
+                    </div>
+                `;
+            } else {
+                messageDiv.innerHTML = '';
+            }
+        }
+
+        function reset() {
+            projects = [];
+            decisions = [];
+            initProjects();
+            document.getElementById('inputView').classList.remove('hidden');
+            document.getElementById('filterView').classList.add('hidden');
+        }
+
+        // Initialize on load
+        initProjects();
+    </script>
+</body>
+                                                                       </html>
