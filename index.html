@@ -3,11 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The 14-Day Project Filter | Executionist System</title>
+    <title>The Execution Protocol | Executionist System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
             font-family: 'Courier New', monospace;
+        }
+        .kill-btn {
+            transition: all 0.2s;
+        }
+        .kill-btn:hover {
+            background-color: #7f1d1d;
+            border-color: #7f1d1d;
+        }
+        .locked {
+            pointer-events: none;
+            opacity: 0.5;
         }
         @media print {
             body * {
@@ -24,43 +35,71 @@
             button {
                 display: none !important;
             }
-            a {
-                display: none !important;
-            }
         }
     </style>
 </head>
 <body class="bg-black text-gray-100 min-h-screen p-8">
     <div id="printable" class="max-w-4xl mx-auto">
+        
         <!-- Header -->
         <div class="border-b border-gray-800 pb-6 mb-8">
             <div class="flex items-center gap-2 mb-2">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                </svg>
-                <span class="text-xs tracking-wider text-gray-500">EXECUTIONIST SYSTEM</span>
+                <span class="text-base">⚙️</span>
+                <span class="text-xs tracking-wider text-gray-500">EXECUTIONIST PROTOCOL</span>
             </div>
-            <h1 class="text-3xl font-bold mb-3">The 14-Day Project Filter</h1>
-            <p class="text-gray-400 text-sm">Cut or Commit. No exceptions.</p>
+            <h1 class="text-3xl font-bold mb-3">The Execution Filter</h1>
+            <p class="text-gray-400 text-sm">Kill the noise. Lock the constraint. Ship the output.</p>
         </div>
 
-        <!-- Input View -->
-        <div id="inputView">
-            <!-- Instructions -->
+        <!-- SCREEN 1: Entry Point -->
+        <div id="entryScreen">
+            <div class="bg-gray-900 border border-gray-800 p-8 mb-8">
+                <h2 class="text-sm font-bold mb-6 tracking-wide">DIAGNOSTIC QUESTION</h2>
+                <p class="text-base text-white mb-8">
+                    Do you have too many ideas, or zero ideas?
+                </p>
+                
+                <div class="space-y-4">
+                    <button 
+                        onclick="selectPath('filter')"
+                        class="w-full bg-white text-black py-4 px-6 font-bold hover:bg-gray-200 transition-colors text-left"
+                    >
+                        <div class="text-sm mb-1">PATH A: THE FILTER</div>
+                        <div class="text-xs text-gray-700">I have too many ideas</div>
+                    </button>
+                    
+                    <button 
+                        onclick="selectPath('generator')"
+                        class="w-full bg-white text-black py-4 px-6 font-bold hover:bg-gray-200 transition-colors text-left"
+                    >
+                        <div class="text-sm mb-1">PATH B: THE GENERATOR</div>
+                        <div class="text-xs text-gray-700">I have zero ideas</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-black border border-gray-800 p-6">
+                <p class="text-xs text-gray-500">
+                    The filter identifies what to kill. The generator provides what to build. Both paths end with the same mandate: ship within 7 days.
+                </p>
+            </div>
+        </div>
+
+        <!-- SCREEN 2A: The Filter (Stalled Builders) -->
+        <div id="filterScreen" class="hidden">
             <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
-                <h2 class="text-sm font-bold mb-4 tracking-wide">INSTRUCTIONS</h2>
+                <h2 class="text-sm font-bold mb-4 tracking-wide">FILTER PROTOCOL</h2>
                 <ol class="space-y-2 text-sm text-gray-300">
-                    <li>1. List every active project, idea, or "someday" task below.</li>
-                    <li>2. Apply the Executionist Filter to each one.</li>
-                    <li>3. Keep only what survives. Kill the rest immediately.</li>
+                    <li>1. List every active project, idea, or incomplete asset.</li>
+                    <li>2. Apply the Low-Energy Filter to each.</li>
+                    <li>3. Kill everything except ONE survivor.</li>
                 </ol>
             </div>
 
             <!-- Project Input -->
             <div class="mb-8">
                 <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
-                    CURRENT PROJECTS / IDEAS / TASKS
+                    ACTIVE PROJECTS / IDEAS
                 </h2>
                 <div id="projectList" class="space-y-3"></div>
                 
@@ -69,66 +108,184 @@
                 </button>
             </div>
 
-            <!-- Filter Button -->
-            <div class="border-t border-gray-800 pt-8">
-                <button onclick="showFilter()" class="w-full bg-white text-black py-4 font-bold hover:bg-gray-200 transition-colors">
-                    APPLY FILTER
-                </button>
-            </div>
-        </div>
-
-        <!-- Filter View -->
-        <div id="filterView" class="hidden">
-            <!-- Filter Instructions -->
-            <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
-                <h2 class="text-sm font-bold mb-4 tracking-wide">THE EXECUTIONIST FILTER</h2>
-                <p class="text-sm text-gray-300 mb-4">
-                    For each project below, answer this question:
+            <!-- Filter Question -->
+            <div class="bg-black border border-gray-700 p-6 mb-8">
+                <p class="text-sm text-gray-400 mb-3">THE LOW-ENERGY FILTER</p>
+                <p class="text-base font-bold text-white">
+                    "Can I work on this during a low-energy Tuesday with no motivation?"
                 </p>
-                <div class="bg-black border border-gray-700 p-4">
-                    <p class="text-base font-bold text-white">
-                        "Can I work on this during a low-energy Tuesday with no motivation?"
-                    </p>
-                </div>
                 <p class="text-xs text-gray-500 mt-4">
                     If the answer is no, it depends on conditions you cannot control. Kill it.
                 </p>
             </div>
 
-            <!-- Decision Matrix -->
+            <!-- Kill Projects -->
+            <div id="killZone" class="mb-8 hidden">
+                <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
+                    ELIMINATION PROTOCOL
+                </h2>
+                <div id="killList" class="space-y-3"></div>
+                
+                <div id="splitFocusWarning" class="hidden mt-6 bg-red-900 border border-red-700 p-4">
+                    <p class="text-sm text-white font-bold mb-2">CONSTRAINT VIOLATION</p>
+                    <p class="text-xs text-gray-300">
+                        Execution fails when focus splits. Pick ONE survivor or the system stays locked.
+                    </p>
+                </div>
+
+                <div id="survivorConfirmed" class="hidden mt-6 bg-gray-900 border border-gray-700 p-4">
+                    <p class="text-sm text-white font-bold mb-2">SURVIVOR LOCKED</p>
+                    <p class="text-xs text-gray-300 mb-4">
+                        Project: <span id="survivorName" class="text-white"></span>
+                    </p>
+                    <button 
+                        onclick="proceedToMandate('filter')"
+                        class="w-full bg-white text-black py-3 font-bold hover:bg-gray-200 transition-colors"
+                    >
+                        PROCEED TO MANDATE
+                    </button>
+                </div>
+            </div>
+
+            <button 
+                id="beginKillBtn"
+                onclick="beginKill()" 
+                class="w-full bg-white text-black py-4 font-bold hover:bg-gray-200 transition-colors"
+            >
+                BEGIN ELIMINATION
+            </button>
+        </div>
+
+        <!-- SCREEN 2B: The Generator (Clueless Earners) -->
+        <div id="generatorScreen" class="hidden">
+            <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide">CONSTRAINT MACHINE</h2>
+                <p class="text-sm text-gray-300 mb-4">
+                    The problem is not lack of ideas. The problem is lack of constraint.
+                </p>
+                <p class="text-sm text-gray-300">
+                    Pick ONE constraint. The machine will lock it. You have 7 days to make it live.
+                </p>
+            </div>
+
             <div class="mb-8">
                 <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
-                    DECISION MATRIX
+                    AVAILABLE CONSTRAINTS
                 </h2>
-                <div id="decisionMatrix" class="space-y-4"></div>
-            </div>
-
-            <!-- Summary -->
-            <div class="bg-black border border-gray-800 p-6 mb-8">
-                <h2 class="text-sm font-bold mb-4 tracking-wide">SUMMARY</h2>
-                <div class="grid grid-cols-2 gap-6">
-                    <div>
-                        <div id="survivingCount" class="text-3xl font-bold mb-1">0</div>
-                        <div class="text-xs text-gray-500">PROJECTS SURVIVING</div>
+                
+                <div class="space-y-4">
+                    <div onclick="selectConstraint(0)" id="constraint-0" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-sm font-bold text-white">CONSTRAINT 01: CONSULTATION</div>
+                            <div id="lock-0" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">
+                            Sell access to your time. One hour. One problem. One price.
+                        </p>
+                        <p class="text-xs text-gray-600">
+                            Observable Output: A payment link and booking calendar.
+                        </p>
                     </div>
-                    <div>
-                        <div id="killedCount" class="text-3xl font-bold mb-1 text-red-500">0</div>
-                        <div class="text-xs text-gray-500">PROJECTS ELIMINATED</div>
+
+                    <div onclick="selectConstraint(1)" id="constraint-1" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-sm font-bold text-white">CONSTRAINT 02: DIGITAL ASSET</div>
+                            <div id="lock-1" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">
+                            Package your knowledge into a 5-10 page PDF. Sell it for $10-50.
+                        </p>
+                        <p class="text-xs text-gray-600">
+                            Observable Output: A completed PDF and a sales page.
+                        </p>
+                    </div>
+
+                    <div onclick="selectConstraint(2)" id="constraint-2" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-sm font-bold text-white">CONSTRAINT 03: SERVICE AUDIT</div>
+                            <div id="lock-2" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                        </div>
+                        <p class="text-xs text-gray-400 mb-3">
+                            Review someone's system, process, or content. Deliver a written breakdown.
+                        </p>
+                        <p class="text-xs text-gray-600">
+                            Observable Output: A service description and first delivery example.
+                        </p>
                     </div>
                 </div>
-                
-                <div id="summaryMessage" class="mt-6"></div>
             </div>
 
-            <!-- Actions -->
-            <div class="flex gap-4 border-t border-gray-800 pt-8">
-                <button onclick="reset()" class="flex-1 border border-gray-700 text-gray-300 py-3 text-sm hover:border-gray-500 transition-colors">
-                    START OVER
-                </button>
-                <button onclick="window.print()" class="flex-1 border border-gray-700 text-gray-300 py-3 text-sm hover:border-gray-500 transition-colors">
-                    SAVE AS PDF
+            <div id="constraintLocked" class="hidden mb-8 bg-gray-900 border border-gray-700 p-4">
+                <p class="text-sm text-white font-bold mb-2">CONSTRAINT LOCKED</p>
+                <p class="text-xs text-gray-300 mb-4">
+                    Selected: <span id="constraintName" class="text-white"></span>
+                </p>
+                <button 
+                    onclick="proceedToMandate('generator')"
+                    class="w-full bg-white text-black py-3 font-bold hover:bg-gray-200 transition-colors"
+                >
+                    PROCEED TO MANDATE
                 </button>
             </div>
+        </div>
+
+        <!-- SCREEN 3: The Mandate -->
+        <div id="mandateScreen" class="hidden">
+            <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
+                <h2 class="text-sm font-bold mb-4 tracking-wide">7-DAY SHIPPING MANDATE</h2>
+                <p class="text-sm text-gray-300 mb-6">
+                    The filter is the easy part. Keeping it alive is the work.
+                </p>
+                
+                <div class="bg-black border border-gray-700 p-5 mb-6">
+                    <p class="text-xs text-gray-500 mb-2">YOUR CONSTRAINT</p>
+                    <p id="finalProject" class="text-base text-white font-bold mb-4"></p>
+                    
+                    <p class="text-xs text-gray-500 mb-2">MANDATE</p>
+                    <p class="text-sm text-white">
+                        You have 7 days to make this live. Not planned. Not outlined. Live.
+                    </p>
+                </div>
+
+                <div class="bg-black border border-gray-700 p-5 mb-8">
+                    <p class="text-xs text-white mb-3">
+                        Observable output required:
+                    </p>
+                    <ul class="text-xs text-gray-400 space-y-2">
+                        <li>• A live link, payment page, or published asset</li>
+                        <li>• Public proof that execution occurred</li>
+                        <li>• No draft. No "coming soon." Done.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <a 
+                href="https://selar.com/6s71967168"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full bg-white text-black text-center py-4 font-bold hover:bg-gray-200 transition-colors mb-4"
+            >
+                ACCEPT THE 7-DAY SHIPPING MANDATE
+            </a>
+
+            <div class="bg-black border border-gray-800 p-6">
+                <p class="text-xs text-gray-500 mb-3">
+                    The 14-Day Execution System includes:
+                </p>
+                <ul class="text-xs text-gray-400 space-y-2">
+                    <li>• The complete enforcement protocol</li>
+                    <li>• Daily execution tracking system</li>
+                    <li>• Anti-relapse mechanisms</li>
+                    <li>• The framework that maintains constraint without willpower</li>
+                </ul>
+            </div>
+
+            <button 
+                onclick="reset()"
+                class="w-full mt-8 border border-gray-700 text-gray-400 py-3 text-sm hover:border-gray-500 transition-colors"
+            >
+                RESET PROTOCOL
+            </button>
         </div>
 
         <!-- Footer -->
@@ -141,10 +298,27 @@
 
     <script>
         let projects = [];
-        let decisions = [];
+        let killedProjects = [];
+        let selectedConstraint = null;
+        let survivor = null;
+        let currentPath = null;
 
+        // PATH SELECTION
+        function selectPath(path) {
+            currentPath = path;
+            document.getElementById('entryScreen').classList.add('hidden');
+            
+            if (path === 'filter') {
+                initProjects();
+                document.getElementById('filterScreen').classList.remove('hidden');
+            } else {
+                document.getElementById('generatorScreen').classList.remove('hidden');
+            }
+        }
+
+        // FILTER PATH FUNCTIONS
         function initProjects() {
-            for (let i = 0; i < 12; i++) {
+            for (let i = 0; i < 5; i++) {
                 projects.push('');
             }
             renderProjects();
@@ -163,7 +337,7 @@
                         value="${project}" 
                         onchange="updateProject(${index}, this.value)"
                         class="flex-1 bg-gray-900 border border-gray-800 px-3 py-2 text-sm focus:border-gray-600 focus:outline-none"
-                        placeholder="Enter project or task"
+                        placeholder="Enter project or idea"
                     />
                 `;
                 list.appendChild(div);
@@ -179,134 +353,105 @@
             renderProjects();
         }
 
-        function showFilter() {
+        function beginKill() {
             const filledProjects = projects.filter(p => p.trim() !== '');
             if (filledProjects.length === 0) {
-                alert('Please add at least one project before applying the filter.');
+                alert('Add at least one project before beginning elimination.');
+                return;
+            }
+            if (filledProjects.length === 1) {
+                alert('You only have one project. No elimination needed. This is your survivor.');
+                survivor = filledProjects[0];
+                showSurvivorConfirmed();
                 return;
             }
 
-            decisions = filledProjects.map(project => ({
-                name: project,
-                decision: null
-            }));
-
-            renderDecisionMatrix();
-            document.getElementById('inputView').classList.add('hidden');
-            document.getElementById('filterView').classList.remove('hidden');
+            projects = filledProjects;
+            document.getElementById('beginKillBtn').classList.add('hidden');
+            renderKillList();
+            document.getElementById('killZone').classList.remove('hidden');
         }
 
-        function renderDecisionMatrix() {
-            const matrix = document.getElementById('decisionMatrix');
-            matrix.innerHTML = '';
+        function renderKillList() {
+            const list = document.getElementById('killList');
+            list.innerHTML = '';
             
-            decisions.forEach((item, index) => {
-                const div = document.createElement('div');
-                div.className = 'bg-gray-900 border border-gray-800 p-4';
-                div.innerHTML = `
-                    <div class="mb-3">
-                        <span class="text-gray-600 text-xs">PROJECT ${index + 1}</span>
-                        <p class="text-sm mt-1">${item.name}</p>
-                    </div>
-                    <div class="flex gap-3">
+            projects.forEach((project, index) => {
+                if (!killedProjects.includes(project)) {
+                    const div = document.createElement('div');
+                    div.id = `project-${index}`;
+                    div.className = 'bg-gray-900 border border-gray-800 p-4 flex justify-between items-center';
+                    div.innerHTML = `
+                        <div class="flex-1">
+                            <p class="text-sm text-white">${project}</p>
+                        </div>
                         <button 
-                            onclick="makeDecision(${index}, true)"
-                            id="commit-${index}"
-                            class="flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors"
+                            onclick="killProject('${project}', ${index})"
+                            class="kill-btn bg-red-900 border border-red-900 text-white px-4 py-2 text-xs font-bold hover:bg-red-800"
                         >
-                            COMMIT
+                            KILL
                         </button>
-                        <button 
-                            onclick="makeDecision(${index}, false)"
-                            id="cut-${index}"
-                            class="flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors"
-                        >
-                            CUT
-                        </button>
-                    </div>
-                `;
-                matrix.appendChild(div);
+                    `;
+                    list.appendChild(div);
+                }
             });
+
+            checkSurvivorStatus();
         }
 
-        function makeDecision(index, passes) {
-            decisions[index].decision = passes;
-            
-            const commitBtn = document.getElementById(`commit-${index}`);
-            const cutBtn = document.getElementById(`cut-${index}`);
-            
-            if (passes) {
-                commitBtn.className = 'flex-1 py-2 text-sm border bg-white text-black border-white transition-colors';
-                cutBtn.className = 'flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors';
-            } else {
-                commitBtn.className = 'flex-1 py-2 text-sm border bg-transparent text-gray-400 border-gray-700 hover:border-gray-500 transition-colors';
-                cutBtn.className = 'flex-1 py-2 text-sm border bg-red-900 text-white border-red-900 transition-colors';
-            }
-            
-            updateSummary();
+        function killProject(project, index) {
+            killedProjects.push(project);
+            document.getElementById(`project-${index}`).remove();
+            checkSurvivorStatus();
         }
 
-        function updateSummary() {
-            const surviving = decisions.filter(d => d.decision === true).length;
-            const killed = decisions.filter(d => d.decision === false).length;
+        function checkSurvivorStatus() {
+            const remaining = projects.filter(p => !killedProjects.includes(p));
             
-            document.getElementById('survivingCount').textContent = surviving;
-            document.getElementById('killedCount').textContent = killed;
-            
-            const messageDiv = document.getElementById('summaryMessage');
-            
-            if (surviving > 2) {
-                messageDiv.innerHTML = `
-                    <div class="bg-gray-900 border border-gray-700 p-4">
-                        <p class="text-xs text-gray-400">
-                            ⚙️ You have ${surviving} active projects. The Executionist System limits you to 1-2 projects per 14-day cycle. Reapply the filter.
-                        </p>
-                    </div>
-                `;
-            } else if (surviving > 0 && surviving <= 2) {
-                messageDiv.innerHTML = `
-                    <div class="bg-gray-900 border border-gray-700 p-4">
-                        <p class="text-xs text-white mb-3">
-                            You have constraint. Now enforce it.
-                        </p>
-                        <p class="text-xs text-gray-400 mb-4">
-                            Constraint creates relief. Maintenance requires a system.
-                        </p>
-                        <p class="text-xs text-gray-400 mb-4">
-                            The Calculator told you WHAT to do. The Execution System ensures you DO it.
-                        </p>
-                        <a 
-                            href="https://selar.com/6s71967168"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            class="block w-full bg-white text-black text-center py-3 text-sm font-bold hover:bg-gray-200 transition-colors"
-                        >
-                            ENFORCE ACTION NOW
-                        </a>
-                        <p class="text-xs text-gray-600 mt-3 text-center">
-                            The system that maintains this state without willpower.
-                        </p>
-                        <p class="text-xs text-gray-600 mt-3 text-center">
-                            Used by 500+ Executionists to kill overthinking.
-                        </p>
-                    </div>
-                `;
-            } else {
-                messageDiv.innerHTML = '';
+            if (remaining.length > 1) {
+                document.getElementById('splitFocusWarning').classList.remove('hidden');
+                document.getElementById('survivorConfirmed').classList.add('hidden');
+            } else if (remaining.length === 1) {
+                survivor = remaining[0];
+                showSurvivorConfirmed();
             }
         }
 
-        function reset() {
-            projects = [];
-            decisions = [];
-            initProjects();
-            document.getElementById('inputView').classList.remove('hidden');
-            document.getElementById('filterView').classList.add('hidden');
+        function showSurvivorConfirmed() {
+            document.getElementById('splitFocusWarning').classList.add('hidden');
+            document.getElementById('survivorConfirmed').classList.remove('hidden');
+            document.getElementById('survivorName').textContent = survivor;
         }
 
-        // Initialize on load
-        initProjects();
-    </script>
-</body>
-    </html>
-    
+        // GENERATOR PATH FUNCTIONS
+        function selectConstraint(index) {
+            // Reset all
+            for (let i = 0; i < 3; i++) {
+                document.getElementById(`constraint-${i}`).classList.remove('border-white');
+                document.getElementById(`lock-${i}`).classList.add('hidden');
+            }
+
+            // Lock selected
+            selectedConstraint = index;
+            document.getElementById(`constraint-${index}`).classList.add('border-white');
+            document.getElementById(`lock-${index}`).classList.remove('hidden');
+
+            // Show confirmation
+            const constraintNames = [
+                'One-Hour Consultation',
+                '5-10 Page Digital Asset',
+                'Service Audit'
+            ];
+            
+            document.getElementById('constraintName').textContent = constraintNames[index];
+            document.getElementById('constraintLocked').classList.remove('hidden');
+        }
+
+        // MANDATE FUNCTIONS
+        function proceedToMandate(path) {
+            document.getElementById('filterScreen').classList.add('hidden');
+            document.getElementById('generatorScreen').classList.add('hidden');
+            document.getElementById('mandateScreen').classList.remove('hidden');
+
+            if (path === 'filter') {
+                document.getElement
