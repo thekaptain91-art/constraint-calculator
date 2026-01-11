@@ -20,6 +20,9 @@
             pointer-events: none;
             opacity: 0.5;
         }
+        .hide {
+            display: none !important;
+        }
         @media print {
             body * {
                 visibility: hidden;
@@ -86,7 +89,7 @@
         </div>
 
         <!-- SCREEN 2A: The Filter (Stalled Builders) -->
-        <div id="filterScreen" class="hidden">
+        <div id="filterScreen" class="hide">
             <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
                 <h2 class="text-sm font-bold mb-4 tracking-wide">FILTER PROTOCOL</h2>
                 <ol class="space-y-2 text-sm text-gray-300">
@@ -120,20 +123,20 @@
             </div>
 
             <!-- Kill Projects -->
-            <div id="killZone" class="mb-8 hidden">
+            <div id="killZone" class="mb-8 hide">
                 <h2 class="text-sm font-bold mb-4 tracking-wide border-b border-gray-800 pb-2">
                     ELIMINATION PROTOCOL
                 </h2>
                 <div id="killList" class="space-y-3"></div>
                 
-                <div id="splitFocusWarning" class="hidden mt-6 bg-red-900 border border-red-700 p-4">
+                <div id="splitFocusWarning" class="hide mt-6 bg-red-900 border border-red-700 p-4">
                     <p class="text-sm text-white font-bold mb-2">CONSTRAINT VIOLATION</p>
                     <p class="text-xs text-gray-300">
                         Execution fails when focus splits. Pick ONE survivor or the system stays locked.
                     </p>
                 </div>
 
-                <div id="survivorConfirmed" class="hidden mt-6 bg-gray-900 border border-gray-700 p-4">
+                <div id="survivorConfirmed" class="hide mt-6 bg-gray-900 border border-gray-700 p-4">
                     <p class="text-sm text-white font-bold mb-2">SURVIVOR LOCKED</p>
                     <p class="text-xs text-gray-300 mb-4">
                         Project: <span id="survivorName" class="text-white"></span>
@@ -157,7 +160,7 @@
         </div>
 
         <!-- SCREEN 2B: The Generator (Clueless Earners) -->
-        <div id="generatorScreen" class="hidden">
+        <div id="generatorScreen" class="hide">
             <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
                 <h2 class="text-sm font-bold mb-4 tracking-wide">CONSTRAINT MACHINE</h2>
                 <p class="text-sm text-gray-300 mb-4">
@@ -177,7 +180,7 @@
                     <div onclick="selectConstraint(0)" id="constraint-0" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm font-bold text-white">CONSTRAINT 01: CONSULTATION</div>
-                            <div id="lock-0" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                            <div id="lock-0" class="text-xs text-gray-600 hide">LOCKED ⚙️</div>
                         </div>
                         <p class="text-xs text-gray-400 mb-3">
                             Sell access to your time. One hour. One problem. One price.
@@ -190,7 +193,7 @@
                     <div onclick="selectConstraint(1)" id="constraint-1" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm font-bold text-white">CONSTRAINT 02: DIGITAL ASSET</div>
-                            <div id="lock-1" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                            <div id="lock-1" class="text-xs text-gray-600 hide">LOCKED ⚙️</div>
                         </div>
                         <p class="text-xs text-gray-400 mb-3">
                             Package your knowledge into a 5-10 page PDF. Sell it for $10-50.
@@ -203,7 +206,7 @@
                     <div onclick="selectConstraint(2)" id="constraint-2" class="bg-gray-900 border border-gray-800 p-5 cursor-pointer hover:border-gray-600 transition-colors">
                         <div class="flex justify-between items-start mb-2">
                             <div class="text-sm font-bold text-white">CONSTRAINT 03: SERVICE AUDIT</div>
-                            <div id="lock-2" class="text-xs text-gray-600 hidden">LOCKED ⚙️</div>
+                            <div id="lock-2" class="text-xs text-gray-600 hide">LOCKED ⚙️</div>
                         </div>
                         <p class="text-xs text-gray-400 mb-3">
                             Review someone's system, process, or content. Deliver a written breakdown.
@@ -215,7 +218,7 @@
                 </div>
             </div>
 
-            <div id="constraintLocked" class="hidden mb-8 bg-gray-900 border border-gray-700 p-4">
+            <div id="constraintLocked" class="hide mb-8 bg-gray-900 border border-gray-700 p-4">
                 <p class="text-sm text-white font-bold mb-2">CONSTRAINT LOCKED</p>
                 <p class="text-xs text-gray-300 mb-4">
                     Selected: <span id="constraintName" class="text-white"></span>
@@ -230,7 +233,7 @@
         </div>
 
         <!-- SCREEN 3: The Mandate -->
-        <div id="mandateScreen" class="hidden">
+        <div id="mandateScreen" class="hide">
             <div class="bg-gray-900 border border-gray-800 p-6 mb-8">
                 <h2 class="text-sm font-bold mb-4 tracking-wide">7-DAY SHIPPING MANDATE</h2>
                 <p class="text-sm text-gray-300 mb-6">
@@ -306,13 +309,13 @@
         // PATH SELECTION
         function selectPath(path) {
             currentPath = path;
-            document.getElementById('entryScreen').classList.add('hidden');
+            document.getElementById('entryScreen').classList.add('hide');
             
             if (path === 'filter') {
                 initProjects();
-                document.getElementById('filterScreen').classList.remove('hidden');
+                document.getElementById('filterScreen').classList.remove('hide');
             } else {
-                document.getElementById('generatorScreen').classList.remove('hidden');
+                document.getElementById('generatorScreen').classList.remove('hide');
             }
         }
 
@@ -367,9 +370,9 @@
             }
 
             projects = filledProjects;
-            document.getElementById('beginKillBtn').classList.add('hidden');
+            document.getElementById('beginKillBtn').classList.add('hide');
             renderKillList();
-            document.getElementById('killZone').classList.remove('hidden');
+            document.getElementById('killZone').classList.remove('hide');
         }
 
         function renderKillList() {
@@ -409,8 +412,8 @@
             const remaining = projects.filter(p => !killedProjects.includes(p));
             
             if (remaining.length > 1) {
-                document.getElementById('splitFocusWarning').classList.remove('hidden');
-                document.getElementById('survivorConfirmed').classList.add('hidden');
+                document.getElementById('splitFocusWarning').classList.remove('hide');
+                document.getElementById('survivorConfirmed').classList.add('hide');
             } else if (remaining.length === 1) {
                 survivor = remaining[0];
                 showSurvivorConfirmed();
@@ -418,8 +421,8 @@
         }
 
         function showSurvivorConfirmed() {
-            document.getElementById('splitFocusWarning').classList.add('hidden');
-            document.getElementById('survivorConfirmed').classList.remove('hidden');
+            document.getElementById('splitFocusWarning').classList.add('hide');
+            document.getElementById('survivorConfirmed').classList.remove('hide');
             document.getElementById('survivorName').textContent = survivor;
         }
 
@@ -428,13 +431,13 @@
             // Reset all
             for (let i = 0; i < 3; i++) {
                 document.getElementById(`constraint-${i}`).classList.remove('border-white');
-                document.getElementById(`lock-${i}`).classList.add('hidden');
+                document.getElementById(`lock-${i}`).classList.add('hide');
             }
 
             // Lock selected
             selectedConstraint = index;
             document.getElementById(`constraint-${index}`).classList.add('border-white');
-            document.getElementById(`lock-${index}`).classList.remove('hidden');
+            document.getElementById(`lock-${index}`).classList.remove('hide');
 
             // Show confirmation
             const constraintNames = [
@@ -444,14 +447,14 @@
             ];
             
             document.getElementById('constraintName').textContent = constraintNames[index];
-            document.getElementById('constraintLocked').classList.remove('hidden');
+            document.getElementById('constraintLocked').classList.remove('hide');
         }
 
         // MANDATE FUNCTIONS
         function proceedToMandate(path) {
-            document.getElementById('filterScreen').classList.add('hidden');
-            document.getElementById('generatorScreen').classList.add('hidden');
-            document.getElementById('mandateScreen').classList.remove('hidden');
+            document.getElementById('filterScreen').classList.add('hide');
+            document.getElementById('generatorScreen').classList.add('hide');
+            document.getElementById('mandateScreen').classList.remove('hide');
 
             if (path === 'filter') {
-                document.getElement
+                docum
