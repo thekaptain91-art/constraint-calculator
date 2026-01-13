@@ -113,7 +113,7 @@
                     The problem is not lack of ideas. The problem is lack of constraint.
                 </p>
                 <p style="font-size: 14px; color: #ccc;">
-                    Pick ONE constraint. The machine will lock it. You have 7 days to make it live.
+                    Pick ONE constraint. The machine will lock it. You have 30 days to make it live.
                 </p>
             </div>
 
@@ -176,8 +176,8 @@
         <!-- SCREEN 3: The Mandate -->
         <div id="mandateScreen" style="display: none;">
             <div style="background-color: #111; border: 1px solid #333; padding: 30px; margin-bottom: 20px;">
-                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">7-DAY LAUNCH MANDATE</h2>
-                <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
+                <h2 id="mandateTitle" style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">LAUNCH MANDATE</h2>
+                <p id="mandateSubtext" style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
                     The filter is the easy part. Keeping it alive is the work.
                 </p>
                 
@@ -186,7 +186,7 @@
                     <p id="finalOffer" style="font-size: 16px; color: #fff; font-weight: bold; margin-bottom: 20px;"></p>
                     
                     <p style="font-size: 12px; color: #666; margin-bottom: 10px;">MANDATE</p>
-                    <p style="font-size: 14px; color: #fff;">
+                    <p id="mandateText" style="font-size: 14px; color: #fff;">
                         You have 7 days to make this live. Not planned. Not outlined. Live.
                     </p>
                 </div>
@@ -208,7 +208,7 @@
             </a>
 
             <div style="background-color: #000; border: 1px solid #333; padding: 20px; margin-bottom: 30px;">
-                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">
+                <p id="benefitsTitle" style="font-size: 12px; color: #666; margin-bottom: 15px;">
                     The Execution System includes:
                 </p>
                 <ul id="benefitsList" style="font-size: 12px; color: #999; padding-left: 0; list-style: none;">
@@ -351,7 +351,7 @@
             }
 
             selectedConstraint = index;
-            document.getElementById('constraint-' + index).style.borderColor = '#fff';
+                    document.getElementById('constraint-' + index).style.borderColor = '#fff';
             document.getElementById('lock-' + index).style.display = 'block';
 
             var constraintNames = [
@@ -372,17 +372,28 @@
             var benefitsList = document.getElementById('benefitsList');
 
             if (path === 'filter') {
+                // Path A: 14-Day Execution System
+                document.getElementById('mandateTitle').textContent = '14-DAY LAUNCH MANDATE';
+                document.getElementById('mandateSubtext').textContent = 'The filter is the easy part. Executing daily is the work.';
+                document.getElementById('mandateText').textContent = 'You have 14 days to make this live. One action per day. No exceptions.';
                 document.getElementById('finalOffer').textContent = survivor;
                 document.getElementById('mandateCTA').href = 'https://selar.com/86xg668888';
                 document.getElementById('mandateCTA').textContent = 'GET THE 14-DAY EXECUTION SYSTEM';
+                document.getElementById('benefitsTitle').textContent = 'The 14-Day Execution System includes:';
                 
                 benefitsList.innerHTML = 
-                    '<li style="margin-bottom: 10px;">• The complete 30-page execution manual</li>' +
-                    '<li style="margin-bottom: 10px;">• The 14-Day Output Tracker (fillable template)</li>' +
-                    '<li style="margin-bottom: 10px;">• The Anti-Relapse Protocol</li>' +
-                    '<li>• Lifetime access + any future updates</li>';
+                    '<li style="margin-bottom: 10px;">• The Execution Gap (why smart people stall)</li>' +
+                    '<li style="margin-bottom: 10px;">• Why Motivation Always Fails (replace emotion with structure)</li>' +
+                    '<li style="margin-bottom: 10px;">• The Friction Audit Protocol (remove obstacles before demanding discipline)</li>' +
+                    '<li style="margin-bottom: 10px;">• The Smallest Real Action Rule (shrink offers until launching is unavoidable)</li>' +
+                    '<li>• The 14-Day Execution Loop (daily structure that replaces motivation)</li>';
                 
             } else {
+                // Path B: 30-Day Offer Launch Protocol
+                document.getElementById('mandateTitle').textContent = '30-DAY LAUNCH MANDATE';
+                document.getElementById('mandateSubtext').textContent = 'The constraint is locked. Now ship it in 30 days.';
+                document.getElementById('mandateText').textContent = 'You have 30 days to make this live, public, and revenue-ready. No redesigns. No perfecting.';
+                
                 var constraintNames = [
                     'Time-Based Service (1-hour consultation)',
                     'Knowledge Package (5-10 page guide)',
@@ -391,12 +402,14 @@
                 document.getElementById('finalOffer').textContent = constraintNames[selectedConstraint];
                 document.getElementById('mandateCTA').href = 'https://selar.com/w184862d7l';
                 document.getElementById('mandateCTA').textContent = 'GET THE 30-DAY OFFER LAUNCH PROTOCOL';
+                document.getElementById('benefitsTitle').textContent = 'The 30-Day Offer Launch Protocol includes:';
                 
                 benefitsList.innerHTML = 
-                    '<li style="margin-bottom: 10px;">• The complete 30-day launch architecture</li>' +
-                    '<li style="margin-bottom: 10px;">• The Atomic Deconstruction framework</li>' +
-                    '<li style="margin-bottom: 10px;">• The No-Redesign Mandate</li>' +
-                    '<li>• Weekly friction audits + timeline template</li>';
+                    '<li style="margin-bottom: 10px;">• The Atomic Deconstruction (break any offer into 30 shipments)</li>' +
+                    '<li style="margin-bottom: 10px;">• The 3-Phase Launch Track (Skeleton → Pressure Test → Hard Launch)</li>' +
+                    '<li style="margin-bottom: 10px;">• The No-Redesign Mandate (ship before perfecting)</li>' +
+                    '<li style="margin-bottom: 10px;">• Weekly Friction Audits (remove launch obstacles)</li>' +
+                    '<li>• Complete 30-day timeline (day-by-day breakdown)</li>';
             }
         }
 
