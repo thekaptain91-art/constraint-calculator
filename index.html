@@ -3,440 +3,230 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Offer Filter | Executionist System</title>
-    <style>
-        body {
-            font-family: 'Courier New', monospace;
-            background-color: #000;
-            color: #f3f4f6;
-            margin: 0;
-            padding: 2rem;
-        }
-        .container {
-            max-width: 56rem;
-            margin: 0 auto;
-        }
-        .hide {
-            display: none !important;
-        }
-        .border-bottom {
-            border-bottom: 1px solid #1f2937;
-            padding-bottom: 1.5rem;
-            margin-bottom: 2rem;
-        }
-        .header-icon {
-            font-size: 1rem;
-        }
-        .header-label {
-            font-size: 0.75rem;
-            letter-spacing: 0.05em;
-            color: #6b7280;
-        }
-        .title {
-            font-size: 1.875rem;
-            font-weight: bold;
-            margin-bottom: 0.75rem;
-        }
-        .subtitle {
-            color: #9ca3af;
-            font-size: 0.875rem;
-        }
-        .box {
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            padding: 2rem;
-            margin-bottom: 2rem;
-        }
-        .box-dark {
-            background-color: #000;
-            border: 1px solid #1f2937;
-            padding: 1.5rem;
-        }
-        .section-title {
-            font-size: 0.875rem;
-            font-weight: bold;
-            margin-bottom: 1.5rem;
-            letter-spacing: 0.05em;
-        }
-        .text-base {
-            font-size: 1rem;
-            color: #fff;
-            margin-bottom: 2rem;
-        }
-        .text-sm {
-            font-size: 0.875rem;
-            color: #d1d5db;
-        }
-        .text-xs {
-            font-size: 0.75rem;
-            color: #9ca3af;
-        }
-        .btn {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.2s;
-            border: none;
-            text-align: left;
-            font-family: 'Courier New', monospace;
-        }
-        .btn-primary {
-            background-color: #fff;
-            color: #000;
-        }
-        .btn-primary:hover {
-            background-color: #e5e7eb;
-        }
-        .btn-secondary {
-            background-color: transparent;
-            color: #9ca3af;
-            border: 1px solid #374151;
-        }
-        .btn-secondary:hover {
-            border-color: #6b7280;
-        }
-        .btn-kill {
-            background-color: #7f1d1d;
-            border: 1px solid #7f1d1d;
-            color: #fff;
-            padding: 0.5rem 1rem;
-            font-size: 0.75rem;
-            font-weight: bold;
-        }
-        .btn-kill:hover {
-            background-color: #991b1b;
-        }
-        .space-y-4 > * + * {
-            margin-top: 1rem;
-        }
-        .space-y-3 > * + * {
-            margin-top: 0.75rem;
-        }
-        .space-y-2 > * + * {
-            margin-top: 0.5rem;
-        }
-        .path-btn {
-            margin-bottom: 1rem;
-        }
-        .path-label {
-            font-size: 0.875rem;
-            margin-bottom: 0.25rem;
-        }
-        .path-desc {
-            font-size: 0.75rem;
-            color: #374151;
-        }
-        input {
-            flex: 1;
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            padding: 0.5rem 0.75rem;
-            font-size: 0.875rem;
-            color: #f3f4f6;
-            font-family: 'Courier New', monospace;
-        }
-        input:focus {
-            outline: none;
-            border-color: #4b5563;
-        }
-        .flex {
-            display: flex;
-        }
-        .gap-3 {
-            gap: 0.75rem;
-        }
-        .justify-between {
-            justify-content: space-between;
-        }
-        .items-center {
-            align-items: center;
-        }
-        .items-start {
-            align-items: flex-start;
-        }
-        .w-6 {
-            width: 1.5rem;
-        }
-        .flex-1 {
-            flex: 1;
-        }
-        .offer-row {
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            padding: 1rem;
-        }
-        .constraint-card {
-            background-color: #111827;
-            border: 1px solid #1f2937;
-            padding: 1.25rem;
-            cursor: pointer;
-            transition: border-color 0.2s;
-        }
-        .constraint-card:hover {
-            border-color: #4b5563;
-        }
-        .constraint-card.selected {
-            border-color: #fff;
-        }
-        .warning-box {
-            background-color: #7f1d1d;
-            border: 1px solid #991b1b;
-            padding: 1rem;
-            margin-top: 1.5rem;
-        }
-        .success-box {
-            background-color: #111827;
-            border: 1px solid #374151;
-            padding: 1rem;
-            margin-top: 1.5rem;
-        }
-        .footer {
-            margin-top: 3rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid #1f2937;
-            text-align: center;
-        }
-        ol {
-            padding-left: 0;
-            list-style: none;
-        }
-        ul {
-            padding-left: 0;
-            list-style: none;
-        }
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-    </style>
+    <title>The Offer Filter</title>
 </head>
-<body>
-    <div class="container">
+<body style="font-family: 'Courier New', monospace; background-color: #000; color: #f3f4f6; margin: 0; padding: 20px;">
+    <div style="max-width: 800px; margin: 0 auto;">
         
         <!-- Header -->
-        <div class="border-bottom">
-            <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem;">
-                <span class="header-icon">⚙️</span>
-                <span class="header-label">EXECUTIONIST PROTOCOL</span>
+        <div style="border-bottom: 1px solid #333; padding-bottom: 20px; margin-bottom: 30px;">
+            <div style="margin-bottom: 10px;">
+                <span style="font-size: 16px;">⚙️</span>
+                <span style="font-size: 12px; color: #666; letter-spacing: 2px;"> EXECUTIONIST PROTOCOL</span>
             </div>
-            <h1 class="title">The Offer Filter</h1>
-            <p class="subtitle">Kill the noise. Lock the constraint. Ship the offer.</p>
+            <h1 style="font-size: 32px; margin: 10px 0;">The Offer Filter</h1>
+            <p style="color: #999; font-size: 14px;">Kill the noise. Lock the constraint. Ship the offer.</p>
         </div>
 
         <!-- SCREEN 1: Entry Point -->
         <div id="entryScreen">
-            <div class="box">
-                <h2 class="section-title">DIAGNOSTIC QUESTION</h2>
-                <p class="text-base">
+            <div style="background-color: #111; border: 1px solid #333; padding: 30px; margin-bottom: 20px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">DIAGNOSTIC QUESTION</h2>
+                <p style="font-size: 16px; color: #fff; margin-bottom: 30px;">
                     Do you have too many offer ideas, or no clear offer?
                 </p>
                 
-                <div class="space-y-4">
-                    <button onclick="showFilter()" class="btn btn-primary path-btn">
-                        <div class="path-label">PATH A: THE FILTER</div>
-                        <div class="path-desc">I have too many offer ideas</div>
-                    </button>
-                    
-                    <button onclick="showGenerator()" class="btn btn-primary path-btn">
-                        <div class="path-label">PATH B: THE GENERATOR</div>
-                        <div class="path-desc">I have no clear offer</div>
-                    </button>
-                </div>
+                <button onclick="showFilter()" style="width: 100%; background-color: #fff; color: #000; padding: 20px; font-weight: bold; cursor: pointer; border: none; margin-bottom: 15px; font-family: 'Courier New', monospace; font-size: 14px; text-align: left;">
+                    <div style="margin-bottom: 5px;">PATH A: THE FILTER</div>
+                    <div style="font-size: 12px; color: #555;">I have too many offer ideas</div>
+                </button>
+                
+                <button onclick="showGenerator()" style="width: 100%; background-color: #fff; color: #000; padding: 20px; font-weight: bold; cursor: pointer; border: none; font-family: 'Courier New', monospace; font-size: 14px; text-align: left;">
+                    <div style="margin-bottom: 5px;">PATH B: THE GENERATOR</div>
+                    <div style="font-size: 12px; color: #555;">I have no clear offer</div>
+                </button>
             </div>
 
-            <div class="box-dark">
-                <p class="text-xs">
+            <div style="background-color: #000; border: 1px solid #333; padding: 20px;">
+                <p style="font-size: 12px; color: #666;">
                     The filter identifies what to kill. The generator provides what to build. Both paths end with the same mandate: launch within 7 days.
                 </p>
             </div>
         </div>
 
         <!-- SCREEN 2A: The Filter -->
-        <div id="filterScreen" class="hide">
-            <div class="box">
-                <h2 class="section-title">FILTER PROTOCOL</h2>
-                <ol class="space-y-2 text-sm">
-                    <li>1. List every offer idea, service, or product you've considered.</li>
-                    <li>2. Apply the Low-Energy Filter to each.</li>
+        <div id="filterScreen" style="display: none;">
+            <div style="background-color: #111; border: 1px solid #333; padding: 30px; margin-bottom: 20px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">FILTER PROTOCOL</h2>
+                <ol style="font-size: 14px; color: #ccc; padding-left: 0; list-style: none;">
+                    <li style="margin-bottom: 10px;">1. List every offer idea, service, or product you've considered.</li>
+                    <li style="margin-bottom: 10px;">2. Apply the Low-Energy Filter to each.</li>
                     <li>3. Kill everything except ONE survivor.</li>
                 </ol>
             </div>
 
-            <div style="margin-bottom: 2rem;">
-                <h2 class="section-title" style="border-bottom: 1px solid #1f2937; padding-bottom: 0.5rem;">
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; letter-spacing: 2px;">
                     OFFER IDEAS / SERVICES / PRODUCTS
                 </h2>
-                <div id="offerList" class="space-y-3"></div>
+                <div id="offerList"></div>
                 
-                <button onclick="addOffer()" class="btn btn-secondary" style="margin-top: 1rem; width: auto; padding: 0.5rem 1rem; font-size: 0.75rem;">
+                <button onclick="addOffer()" style="margin-top: 15px; font-size: 12px; color: #999; border: 1px solid #333; background: transparent; padding: 10px 15px; cursor: pointer; font-family: 'Courier New', monospace;">
                     + Add Another
                 </button>
             </div>
 
-            <div class="box-dark" style="margin-bottom: 2rem;">
-                <p class="text-sm" style="color: #9ca3af; margin-bottom: 0.75rem;">THE LOW-ENERGY FILTER</p>
-                <p class="text-base" style="font-weight: bold;">
+            <div style="background-color: #000; border: 1px solid #555; padding: 25px; margin-bottom: 30px;">
+                <p style="font-size: 14px; color: #999; margin-bottom: 15px;">THE LOW-ENERGY FILTER</p>
+                <p style="font-size: 16px; font-weight: bold; color: #fff; margin-bottom: 15px;">
                     "Can I deliver this on a low-energy Tuesday with no motivation?"
                 </p>
-                <p class="text-xs" style="margin-top: 1rem;">
+                <p style="font-size: 12px; color: #666;">
                     If the answer is no, it depends on conditions you cannot control. Kill it.
                 </p>
             </div>
 
-            <div id="killZone" class="hide" style="margin-bottom: 2rem;">
-                <h2 class="section-title" style="border-bottom: 1px solid #1f2937; padding-bottom: 0.5rem;">
+            <div id="killZone" style="display: none; margin-bottom: 30px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; letter-spacing: 2px;">
                     ELIMINATION PROTOCOL
                 </h2>
-                <div id="killList" class="space-y-3"></div>
+                <div id="killList"></div>
                 
-                <div id="splitFocusWarning" class="hide warning-box">
-                    <p class="text-sm" style="color: #fff; font-weight: bold; margin-bottom: 0.5rem;">CONSTRAINT VIOLATION</p>
-                    <p class="text-xs" style="color: #d1d5db;">
+                <div id="splitFocusWarning" style="display: none; background-color: #7f1d1d; border: 1px solid #991b1b; padding: 15px; margin-top: 20px;">
+                    <p style="font-size: 14px; color: #fff; font-weight: bold; margin-bottom: 10px;">CONSTRAINT VIOLATION</p>
+                    <p style="font-size: 12px; color: #ccc;">
                         Execution fails when focus splits. Pick ONE survivor or the system stays locked.
                     </p>
                 </div>
 
-                <div id="survivorConfirmed" class="hide success-box">
-                    <p class="text-sm" style="color: #fff; font-weight: bold; margin-bottom: 0.5rem;">SURVIVOR LOCKED</p>
-                    <p class="text-xs" style="color: #d1d5db; margin-bottom: 1rem;">
+                <div id="survivorConfirmed" style="display: none; background-color: #111; border: 1px solid #555; padding: 15px; margin-top: 20px;">
+                    <p style="font-size: 14px; color: #fff; font-weight: bold; margin-bottom: 10px;">SURVIVOR LOCKED</p>
+                    <p style="font-size: 12px; color: #ccc; margin-bottom: 15px;">
                         Offer: <span id="survivorName" style="color: #fff;"></span>
                     </p>
-                    <button onclick="proceedToMandate('filter')" class="btn btn-primary">
+                    <button onclick="proceedToMandate('filter')" style="width: 100%; background-color: #fff; color: #000; padding: 15px; font-weight: bold; cursor: pointer; border: none; font-family: 'Courier New', monospace;">
                         PROCEED TO MANDATE
                     </button>
                 </div>
             </div>
 
-            <button id="beginKillBtn" onclick="beginKill()" class="btn btn-primary">
+            <button id="beginKillBtn" onclick="beginKill()" style="width: 100%; background-color: #fff; color: #000; padding: 20px; font-weight: bold; cursor: pointer; border: none; font-family: 'Courier New', monospace;">
                 BEGIN ELIMINATION
             </button>
         </div>
 
         <!-- SCREEN 2B: The Generator -->
-        <div id="generatorScreen" class="hide">
-            <div class="box">
-                <h2 class="section-title">CONSTRAINT MACHINE</h2>
-                <p class="text-sm" style="margin-bottom: 1rem;">
+        <div id="generatorScreen" style="display: none;">
+            <div style="background-color: #111; border: 1px solid #333; padding: 30px; margin-bottom: 20px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">CONSTRAINT MACHINE</h2>
+                <p style="font-size: 14px; color: #ccc; margin-bottom: 15px;">
                     The problem is not lack of ideas. The problem is lack of constraint.
                 </p>
-                <p class="text-sm">
+                <p style="font-size: 14px; color: #ccc;">
                     Pick ONE constraint. The machine will lock it. You have 7 days to make it live.
                 </p>
             </div>
 
-            <div style="margin-bottom: 2rem;">
-                <h2 class="section-title" style="border-bottom: 1px solid #1f2937; padding-bottom: 0.5rem;">
+            <div style="margin-bottom: 30px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #333; padding-bottom: 10px; letter-spacing: 2px;">
                     AVAILABLE CONSTRAINTS
                 </h2>
                 
-                <div class="space-y-4">
-                    <div onclick="selectConstraint(0)" id="constraint-0" class="constraint-card">
-                        <div class="flex justify-between items-start" style="margin-bottom: 0.5rem;">
-                            <div class="text-sm" style="font-weight: bold; color: #fff;">CONSTRAINT 01: TIME-BASED SERVICE</div>
-                            <div id="lock-0" class="text-xs hide" style="color: #9ca3af;">LOCKED ⚙️</div>
-                        </div>
-                        <p class="text-xs" style="color: #9ca3af; margin-bottom: 0.75rem;">
-                            Sell 1 hour of your expertise. One problem. One price.
-                        </p>
-                        <p class="text-xs" style="color: #6b7280;">
-                            Observable Output: A payment link and booking page.
-                        </p>
+                <div onclick="selectConstraint(0)" id="constraint-0" style="background-color: #111; border: 1px solid #333; padding: 20px; cursor: pointer; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="font-size: 14px; font-weight: bold; color: #fff;">CONSTRAINT 01: TIME-BASED SERVICE</div>
+                        <div id="lock-0" style="font-size: 12px; color: #666; display: none;">LOCKED ⚙️</div>
                     </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">
+                        Sell 1 hour of your expertise. One problem. One price.
+                    </p>
+                    <p style="font-size: 12px; color: #666;">
+                        Observable Output: A payment link and booking page.
+                    </p>
+                </div>
 
-                    <div onclick="selectConstraint(1)" id="constraint-1" class="constraint-card">
-                        <div class="flex justify-between items-start" style="margin-bottom: 0.5rem;">
-                            <div class="text-sm" style="font-weight: bold; color: #fff;">CONSTRAINT 02: KNOWLEDGE PACKAGE</div>
-                            <div id="lock-1" class="text-xs hide" style="color: #9ca3af;">LOCKED ⚙️</div>
-                        </div>
-                        <p class="text-xs" style="color: #9ca3af; margin-bottom: 0.75rem;">
-                            Turn what you know into a 5-10 page guide. Price: $10-50.
-                        </p>
-                        <p class="text-xs" style="color: #6b7280;">
-                            Observable Output: A completed PDF and buy button.
-                        </p>
+                <div onclick="selectConstraint(1)" id="constraint-1" style="background-color: #111; border: 1px solid #333; padding: 20px; cursor: pointer; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="font-size: 14px; font-weight: bold; color: #fff;">CONSTRAINT 02: KNOWLEDGE PACKAGE</div>
+                        <div id="lock-1" style="font-size: 12px; color: #666; display: none;">LOCKED ⚙️</div>
                     </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">
+                        Turn what you know into a 5-10 page guide. Price: $10-50.
+                    </p>
+                    <p style="font-size: 12px; color: #666;">
+                        Observable Output: A completed PDF and buy button.
+                    </p>
+                </div>
 
-                    <div onclick="selectConstraint(2)" id="constraint-2" class="constraint-card">
-                        <div class="flex justify-between items-start" style="margin-bottom: 0.5rem;">
-                            <div class="text-sm" style="font-weight: bold; color: #fff;">CONSTRAINT 03: DONE-FOR-YOU AUDIT</div>
-                            <div id="lock-2" class="text-xs hide" style="color: #9ca3af;">LOCKED ⚙️</div>
-                        </div>
-                        <p class="text-xs" style="color: #9ca3af; margin-bottom: 0.75rem;">
-                            Review someone's system, process, or content. Deliver written feedback.
-                        </p>
-                        <p class="text-xs" style="color: #6b7280;">
-                            Observable Output: Service description and sample audit.
-                        </p>
+                <div onclick="selectConstraint(2)" id="constraint-2" style="background-color: #111; border: 1px solid #333; padding: 20px; cursor: pointer; margin-bottom: 15px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <div style="font-size: 14px; font-weight: bold; color: #fff;">CONSTRAINT 03: DONE-FOR-YOU AUDIT</div>
+                        <div id="lock-2" style="font-size: 12px; color: #666; display: none;">LOCKED ⚙️</div>
                     </div>
+                    <p style="font-size: 12px; color: #999; margin-bottom: 10px;">
+                        Review someone's system, process, or content. Deliver written feedback.
+                    </p>
+                    <p style="font-size: 12px; color: #666;">
+                        Observable Output: Service description and sample audit.
+                    </p>
                 </div>
             </div>
 
-            <div id="constraintLocked" class="hide success-box" style="margin-bottom: 2rem;">
-                <p class="text-sm" style="color: #fff; font-weight: bold; margin-bottom: 0.5rem;">CONSTRAINT LOCKED</p>
-                <p class="text-xs" style="color: #d1d5db; margin-bottom: 1rem;">
+            <div id="constraintLocked" style="display: none; background-color: #111; border: 1px solid #555; padding: 15px; margin-bottom: 30px;">
+                <p style="font-size: 14px; color: #fff; font-weight: bold; margin-bottom: 10px;">CONSTRAINT LOCKED</p>
+                <p style="font-size: 12px; color: #ccc; margin-bottom: 15px;">
                     Selected: <span id="constraintName" style="color: #fff;"></span>
                 </p>
-                <button onclick="proceedToMandate('generator')" class="btn btn-primary">
+                <button onclick="proceedToMandate('generator')" style="width: 100%; background-color: #fff; color: #000; padding: 15px; font-weight: bold; cursor: pointer; border: none; font-family: 'Courier New', monospace;">
                     PROCEED TO MANDATE
                 </button>
             </div>
         </div>
 
         <!-- SCREEN 3: The Mandate -->
-        <div id="mandateScreen" class="hide">
-            <div class="box">
-                <h2 class="section-title">7-DAY LAUNCH MANDATE</h2>
-                <p class="text-sm" style="margin-bottom: 1.5rem;">
+        <div id="mandateScreen" style="display: none;">
+            <div style="background-color: #111; border: 1px solid #333; padding: 30px; margin-bottom: 20px;">
+                <h2 style="font-size: 14px; font-weight: bold; margin-bottom: 20px; letter-spacing: 2px;">7-DAY LAUNCH MANDATE</h2>
+                <p style="font-size: 14px; color: #ccc; margin-bottom: 20px;">
                     The filter is the easy part. Keeping it alive is the work.
                 </p>
                 
-                <div class="box-dark" style="margin-bottom: 1.5rem;">
-                    <p class="text-xs" style="color: #6b7280; margin-bottom: 0.5rem;">YOUR CONSTRAINT</p>
-                    <p id="finalOffer" class="text-base" style="font-weight: bold; margin-bottom: 1rem;"></p>
+                <div style="background-color: #000; border: 1px solid #555; padding: 20px; margin-bottom: 20px;">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">YOUR CONSTRAINT</p>
+                    <p id="finalOffer" style="font-size: 16px; color: #fff; font-weight: bold; margin-bottom: 20px;"></p>
                     
-                    <p class="text-xs" style="color: #6b7280; margin-bottom: 0.5rem;">MANDATE</p>
-                    <p class="text-sm" style="color: #fff;">
+                    <p style="font-size: 12px; color: #666; margin-bottom: 10px;">MANDATE</p>
+                    <p style="font-size: 14px; color: #fff;">
                         You have 7 days to make this live. Not planned. Not outlined. Live.
                     </p>
                 </div>
 
-                <div class="box-dark" style="margin-bottom: 2rem;">
-                    <p class="text-xs" style="color: #fff; margin-bottom: 0.75rem;">
+                <div style="background-color: #000; border: 1px solid #555; padding: 20px; margin-bottom: 30px;">
+                    <p style="font-size: 12px; color: #fff; margin-bottom: 15px;">
                         Observable output required:
                     </p>
-                    <ul class="text-xs space-y-2" style="color: #9ca3af;">
-                        <li>• A live payment link or booking page</li>
-                        <li>• Public proof that the offer exists</li>
+                    <ul style="font-size: 12px; color: #999; padding-left: 0; list-style: none;">
+                        <li style="margin-bottom: 10px;">• A live payment link or booking page</li>
+                        <li style="margin-bottom: 10px;">• Public proof that the offer exists</li>
                         <li>• No draft. No "coming soon." Done.</li>
                     </ul>
                 </div>
             </div>
 
-            <a id="mandateCTA" href="" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display: block; text-align: center; margin-bottom: 1rem;">
+            <a id="mandateCTA" href="" target="_blank" style="display: block; width: 100%; background-color: #fff; color: #000; text-align: center; padding: 20px; font-weight: bold; text-decoration: none; margin-bottom: 15px; font-family: 'Courier New', monospace; box-sizing: border-box;">
                 GET THE EXECUTION SYSTEM
             </a>
 
-            <div class="box-dark">
-                <p class="text-xs" style="color: #6b7280; margin-bottom: 0.75rem;">
+            <div style="background-color: #000; border: 1px solid #333; padding: 20px; margin-bottom: 30px;">
+                <p style="font-size: 12px; color: #666; margin-bottom: 15px;">
                     The Execution System includes:
                 </p>
-                <ul class="text-xs space-y-2" style="color: #9ca3af;">
-                    <li id="benefit1">• The complete enforcement protocol</li>
-                    <li id="benefit2">• Daily execution tracking system</li>
-                    <li id="benefit3">• Anti-relapse mechanisms</li>
-                    <li id="benefit4">• The framework that maintains constraint without willpower</li>
+                <ul id="benefitsList" style="font-size: 12px; color: #999; padding-left: 0; list-style: none;">
+                    <li style="margin-bottom: 10px;">• Benefit 1</li>
+                    <li style="margin-bottom: 10px;">• Benefit 2</li>
+                    <li style="margin-bottom: 10px;">• Benefit 3</li>
+                    <li>• Benefit 4</li>
                 </ul>
             </div>
 
-            <button onclick="reset()" class="btn btn-secondary" style="margin-top: 2rem;">
+            <button onclick="reset()" style="width: 100%; border: 1px solid #555; color: #999; background: transparent; padding: 15px; font-size: 14px; cursor: pointer; font-family: 'Courier New', monospace;">
                 RESET PROTOCOL
             </button>
         </div>
 
         <!-- Footer -->
-        <div class="footer">
-            <p class="text-xs" style="color: #4b5563;">
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #333; text-align: center;">
+            <p style="font-size: 12px; color: #555;">
                 Executionist Content Operating System · Constraint-Based Action
             </p>
         </div>
@@ -475,6 +265,7 @@
                 div.style.cssText = 'display: flex; gap: 10px; margin-bottom: 10px;';
                 div.innerHTML = '<span style="color: #666; font-size: 14px; width: 20px;">' + (i + 1) + '.</span>' +
                     '<input type="text" value="' + offers[i] + '" onchange="updateOffer(' + i + ', this.value)" ' +
+                    'style="flex: 1; background-color: #111; border: 1px solid #333; padding: 10px; font-size: 14px; color: #fff; font-family: \'Courier New\', monospace;" ' +
                     'placeholder="Enter offer idea" />';
                 list.appendChild(div);
             }
@@ -555,12 +346,12 @@
 
         function selectConstraint(index) {
             for (var i = 0; i < 3; i++) {
-                document.getElementById('constraint-' + i).classList.remove('selected');
+                document.getElementById('constraint-' + i).style.borderColor = '#333';
                 document.getElementById('lock-' + i).style.display = 'none';
             }
 
             selectedConstraint = index;
-            document.getElementById('constraint-' + index).classList.add('selected');
+            document.getElementById('constraint-' + index).style.borderColor = '#fff';
             document.getElementById('lock-' + index).style.display = 'block';
 
             var constraintNames = [
@@ -578,20 +369,20 @@
             document.getElementById('generatorScreen').style.display = 'none';
             document.getElementById('mandateScreen').style.display = 'block';
 
+            var benefitsList = document.getElementById('benefitsList');
+
             if (path === 'filter') {
-                // Path A leads to 14-Day Execution System
                 document.getElementById('finalOffer').textContent = survivor;
                 document.getElementById('mandateCTA').href = 'https://selar.com/86xg668888';
                 document.getElementById('mandateCTA').textContent = 'GET THE 14-DAY EXECUTION SYSTEM';
                 
-                // Update benefits for 14-Day System
-                document.getElementById('benefit1').textContent = '• The complete 30-page execution manual';
-                document.getElementById('benefit2').textContent = '• The 14-Day Output Tracker (fillable template)';
-                document.getElementById('benefit3').textContent = '• The Anti-Relapse Protocol';
-                document.getElementById('benefit4').textContent = '• Lifetime access + any future updates';
+                benefitsList.innerHTML = 
+                    '<li style="margin-bottom: 10px;">• The complete 30-page execution manual</li>' +
+                    '<li style="margin-bottom: 10px;">• The 14-Day Output Tracker (fillable template)</li>' +
+                    '<li style="margin-bottom: 10px;">• The Anti-Relapse Protocol</li>' +
+                    '<li>• Lifetime access + any future updates</li>';
                 
             } else {
-                // Path B leads to 30-Day Offer Launch Protocol
                 var constraintNames = [
                     'Time-Based Service (1-hour consultation)',
                     'Knowledge Package (5-10 page guide)',
@@ -601,11 +392,11 @@
                 document.getElementById('mandateCTA').href = 'https://selar.com/w184862d7l';
                 document.getElementById('mandateCTA').textContent = 'GET THE 30-DAY OFFER LAUNCH PROTOCOL';
                 
-                // Update benefits for 30-Day System
-                document.getElementById('benefit1').textContent = '• The complete 30-day launch architecture';
-                document.getElementById('benefit2').textContent = '• The Atomic Deconstruction framework';
-                document.getElementById('benefit3').textContent = '• The No-Redesign Mandate';
-                document.getElementById('benefit4').textContent = '• Weekly friction audits + timeline template';
+                benefitsList.innerHTML = 
+                    '<li style="margin-bottom: 10px;">• The complete 30-day launch architecture</li>' +
+                    '<li style="margin-bottom: 10px;">• The Atomic Deconstruction framework</li>' +
+                    '<li style="margin-bottom: 10px;">• The No-Redesign Mandate</li>' +
+                    '<li>• Weekly friction audits + timeline template</li>';
             }
         }
 
